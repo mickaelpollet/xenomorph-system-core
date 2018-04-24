@@ -1,0 +1,19 @@
+{
+    "name": "xenomorph/xenomorph-system-core",
+    "description": "Xenomorph's Framework and Libraries Core",
+    "keywords": ["php freamwork", "framework", "xenomorph"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mickaël POLLET",
+            "email": "mickaelpollet@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php":">=5.5.0"
+    },
+    "autoload": {},
+    "version": "1.0.0"
+}
