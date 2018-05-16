@@ -4,6 +4,9 @@
 
 # Versionning
 
+v1.1.0
+- Adding exemple of new XClass.
+
 v1.0.0
 - Initial commit.
 
