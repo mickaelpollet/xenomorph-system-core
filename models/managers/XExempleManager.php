@@ -1,9 +1,12 @@
 <?php
 /*************************************
- * @project: 	Xenomorph - Models - XExempleManager
+ * @project: 	Xenomorph - System - Core
  * @file:		XExemple CLASS MANAGER
  * @author: 	Mickaël POLLET
  *************************************/
+
+ // Importation de XSystem
+ require_once(__DIR__ . '/../../config/XConfig_load.php');
 
 class XExempleManager
 {

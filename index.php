@@ -1,7 +1,13 @@
 <?php
 
-// Importation de l'autoload de COMPOSER
-require __DIR__ . '/vendor/autoload.php';
+/*************************************
+ * @project: 	Xenomorph - System - Core
+ * @file:		Globals fonctions page
+ * @author: 	Mickaël POLLET
+ *************************************/
+
+ // Importation de XSystem
+ require_once(__DIR__ . '/config/XConfig_load.php');
 
 ?>
 

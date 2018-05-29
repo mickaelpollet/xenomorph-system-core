@@ -1,9 +1,12 @@
 <?php
 /*************************************
- * @project: 	Xenomorph - System - XClass
+ * @project: 	Xenomorph - System - Core
  * @file:		MODEL CLASS XClass
  * @author: 	Mickaël POLLET
  *************************************/
+
+ // Importation de XSystem
+ require_once(__DIR__ . '/../config/XConfig_load.php');
 
 //namespace Xenomorph;
 

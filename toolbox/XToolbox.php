@@ -1,6 +1,6 @@
 <?php
 /*************************************
- * @project: 	Xenomorph - System - Tools
+ * @project: 	Xenomorph - System - Core
  * @file:		Globals fonctions page
  * @author: 	Mickaël POLLET
  *************************************/

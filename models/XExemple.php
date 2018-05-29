@@ -1,6 +1,6 @@
 <?php
 /*************************************
- * @project: 	Xenomorph - Models - XExemple
+ * @project: 	Xenomorph - System - Core
  * @file:		MODEL CLASS XExemple
  * @author: 	Mickaël POLLET
  *************************************/
