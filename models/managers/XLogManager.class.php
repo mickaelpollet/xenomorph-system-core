@@ -16,6 +16,7 @@ class XLogManager
 /******************************************************/
 
 	use XSystem;
+  /*  				/!\		En cours de re-développement		/!\						*/
 	//private $_db; // Instance de PDO.
 
 /**********************************************************/
