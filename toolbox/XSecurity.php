@@ -136,7 +136,7 @@ function passwordCheck($password) {
 	if (preg_match("#[\d]#", $password)) {	$password_score++;	}
 	if (preg_match("#[-!§$%&\\\/()=?+*~\#'_:.,;@]#", $password)) {	$password_score++;	}
 
-	if (strlen($password) < globalConfig('security', 'password_digit_min') || $password_score < globalConfig('security', 'security_level_min')) {
+	if (strlen($password) < XConfig('security', 'password_digit_min') || $password_score < XConfig('security', 'security_level_min')) {
 		return false;
 	}
 
@@ -144,7 +144,7 @@ function passwordCheck($password) {
 }
 
 function passwordHash($password) {
-	return hash('sha512', md5($password.globalConfig('security', 'password_salt')));
+	return hash('sha512', md5($password.XConfig('security', 'password_salt')));
 }*/
 /*****************     FONCTIONS NON DISPONIBLES ENCORE     *****************/
 ?>

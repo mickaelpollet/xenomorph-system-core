@@ -257,7 +257,7 @@ class XUserManager
 /*
 		try {
 
-			if (is_string($user) && checkMailAddress(mb_strtolower($user, globalConfig('application', 'global_encodage')))) {
+			if (is_string($user) && checkMailAddress(mb_strtolower($user, XConfig('application', 'global_encodage')))) {
 				$current_user_to_get = array ( 0 => 'mail', 1 => $user);
 				$db_request_param = array('filter' => 'mail', 'filter_restriction' => PDO::PARAM_STR);
 			} else {

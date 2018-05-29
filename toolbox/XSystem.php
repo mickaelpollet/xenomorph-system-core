@@ -84,7 +84,7 @@ function XConfig($domain, $expression = null) {
 // Récupération d'une valeur du fichier de configuration global
 /*  				/!\		En cours de re-développement		/!\						*/
 /*
-function globalConfig($domain, $expression = null) {
+function XConfig($domain, $expression = null) {
 	global $global_config;
 	if ($expression == null) {
 		return $global_config[$domain];

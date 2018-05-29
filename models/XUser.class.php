@@ -40,7 +40,7 @@ class XUser extends XClass
 		parent::__construct();
 		if (is_array($user_datas) || is_a($user_datas, get_class($this))) {
 			/*  				/!\		En cours de re-développement		/!\						*/
-			//$this->set('lang', globalConfig('application', 'default_lang'));
+			//$this->set('lang', XConfig('application', 'default_lang'));
 			/*  				/!\		En cours de re-développement		/!\						*/
 			$this->hydrate($user_datas);
 		} else {
@@ -90,7 +90,7 @@ class XUser extends XClass
 	// Setter chargé d'affecter l'adresse mail de l'utilisateur
 	public function setMail($mail) {
 		if (checkMailAddress($mail)) {
-			$this->set('mail', mb_strtolower($mail, globalConfig('application', 'global_encodage')));
+			$this->set('mail', mb_strtolower($mail, XConfig('application', 'global_encodage')));
 		} else {
 			throw new XException('00080001', 4, array( 0 => $mail));
 		}
@@ -98,7 +98,7 @@ class XUser extends XClass
 
 	// Setter chargé d'affecter le prénom de l'utilisateur
 	public function setFname($fname) {
-		$min_fname = mb_strtolower($fname, globalConfig('application', 'global_encodage'));		// Mise en minuscule de tout le prénom pour le retravailler
+		$min_fname = mb_strtolower($fname, XConfig('application', 'global_encodage'));		// Mise en minuscule de tout le prénom pour le retravailler
 		$fname = str_replace(' ', '-', $fname);													// Remplacement des espaces par des tirets
 		$fname_exploded = explode('-', $fname);													// Recherche des particules
 		$final_fname = '';																		// Initialisation de la variable finale du prénom
@@ -114,14 +114,14 @@ class XUser extends XClass
 
 	// Setter chargé d'affecter le nom de l'utilisateur
 	public function setLname($lname) {
-		$min_lname = mb_strtoupper($lname, globalConfig('application', 'global_encodage'));
+		$min_lname = mb_strtoupper($lname, XConfig('application', 'global_encodage'));
 		$lname_exploded = explode('-', $min_lname);												// Recherche des particules
 		$final_lname = '';																		// Initialisation de la variable finale du nom
 		foreach ($lname_exploded as $lname_exploded_key => $lname_exploded_value) {				// Mise en majuscule de chaque particule
 			if ($lname_exploded_key != 0 && $lname_exploded[$lname_exploded_key-1] != '') {
-				$final_lname .= '-'.mb_strtoupper($lname_exploded_value, globalConfig('application', 'global_encodage'));				// Ajout du tiret si besoin
+				$final_lname .= '-'.mb_strtoupper($lname_exploded_value, XConfig('application', 'global_encodage'));				// Ajout du tiret si besoin
 			} else {
-				$final_lname .= mb_strtoupper($lname_exploded_value, globalConfig('application', 'global_encodage'));
+				$final_lname .= mb_strtoupper($lname_exploded_value, XConfig('application', 'global_encodage'));
 			}
 		}
 		$this->set('lname', $final_lname);
