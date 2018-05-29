@@ -4,6 +4,10 @@
 
 # Versionning
 
+v1.2.0
+- Adding XUser and it manager.
+- Adding configuration system.
+
 v1.1.0
 - Adding exemple of new XClass.
 
