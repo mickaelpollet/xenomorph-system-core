@@ -4,6 +4,9 @@
 
 # Versionning
 
+v1.3.1
+- Correction with XClassProperty where Objects can't have trim treatments.
+
 v1.3.0
 - Adding 'trim' for XClass values with setters by default.
 - Adding XClassManager to instanciate all managers.
