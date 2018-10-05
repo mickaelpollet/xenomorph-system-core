@@ -82,10 +82,12 @@ class XClass
 
     if (is_array($object_data)) {
       foreach ($object_data as $object_data_key => $object_data_value) {
-        if($this->isProperty($object_data_key)) {
+
+        if($this->isProperty($object_data_key) || method_exists($this, 'set'.ucfirst($object_data_key))) {
           if ($object_data_value == '') {
             $object_data_value = null;
           }
+
           $this->{'set'.ucfirst($object_data_key)}($object_data_value);
         }
       }

@@ -4,6 +4,9 @@
 
 # Versionning
 
+v1.4.1
+- Correction on Hydrate method with non properties methods who wheren't executed by older version
+
 v1.4.0
 - Add Hydrate method by default in XClass.
 
