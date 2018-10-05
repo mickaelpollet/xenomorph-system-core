@@ -4,6 +4,9 @@
 
 # Versionning
 
+v1.4.0
+- Add Hydrate method by default in XClass.
+
 v1.3.1
 - Correction with XClassProperty where Objects can't have trim treatments.
 

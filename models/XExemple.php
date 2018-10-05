@@ -46,10 +46,8 @@ class XExemple extends XClass
   /********************************************************/
 
     public function __construct($class_datas = array()) {				// Constructeur dirigé vers la méthode d'hydratation
-
       // Constructeur de XClass
       parent::__construct($class_datas);
-
     }
 
   /********************************************************/

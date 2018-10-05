@@ -26,12 +26,14 @@
     echo "<br/>";
 
     // XClass instanciating
+    // Method 1
     $XClassExemple = new XExemple();
-
-    echo "<br/>";
+    // Method 2
+    $XClassExempleValues = array();
+    $XClassExempleValues['property1'] = 'Mika';
+    $XClassExemple2 = new XExemple(array('property1' => 'Mika'));
 
     // XClass property setting
-    $XClassExemple->hello();
     $XClassExemple->setProperty1("Mika");
 
     // Asking Manager method
@@ -40,8 +42,8 @@
     * You don't have to instanciate Manager anymore
     */
     $XClassExemple->hello();
-
-    //var_dump($XClassExemple);
+    echo "<br/>";
+    $XClassExemple2->hello();
 
     $test = new XClassProperty(array(
         'name' => 'test',

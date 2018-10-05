@@ -29,8 +29,9 @@ class XClass
 /********************************************************/
 
   // Constructeur global de la classe
-	public function __construct() {
+	public function __construct($XClass_data = null) {
 		$this->setClassProperties();
+    $this->hydrate($XClass_data);
 	}
 
   // Qualification de la méthode appelée
@@ -77,7 +78,25 @@ class XClass
 /*****************     HYDRATATION     *****************/
 /*******************************************************/
 
+  private function hydrate($object_data) {
 
+    if (is_array($object_data)) {
+      foreach ($object_data as $object_data_key => $object_data_value) {
+        if($this->isProperty($object_data_key)) {
+          if ($object_data_value == '') {
+            $object_data_value = null;
+          }
+          $this->{'set'.ucfirst($object_data_key)}($object_data_value);
+        }
+      }
+    } else if (is_a($object_data, get_class($this))) {
+      foreach ($this->properties() as $properties_key => $properties_value) {
+        $this->{'set'.ucfirst($properties_value)}($object_data->$properties_value());
+      }
+    }/* else {
+      throw new XException('00010003', 4, array( 0 => get_class($this) ));
+    }*/
+  }
 
 /***********************************************************/
 /*****************     FIN HYDRATATION     *****************/
