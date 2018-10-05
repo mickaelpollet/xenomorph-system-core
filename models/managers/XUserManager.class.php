@@ -6,7 +6,7 @@
  * @databaseTables:	x_users, x_users_informations, x_users_rights, x_users_security
  *************************************/
 
-class XUserManager
+class XUserManager extends XClassManager
 {
 
 /******************************************************/

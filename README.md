@@ -4,6 +4,11 @@
 
 # Versionning
 
+v1.3.0
+- Adding 'trim' for XClass values with setters by default.
+- Adding XClassManager to instanciate all managers.
+- All managers are now not directly instanciated. They are called by XClass if asked method is not a current object method. Check XExemple and XExempleManager to understand how it works.
+
 v1.2.0
 - Adding XUser and it manager.
 - Adding configuration system.

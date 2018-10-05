@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "2c2ac3356425e192f7537227508c809a14aa5850"
+                "reference": "cee8e8653dc009b5d86af4a8e2ad3a5e0688ca4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/2c2ac3356425e192f7537227508c809a14aa5850",
-                "reference": "2c2ac3356425e192f7537227508c809a14aa5850",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/cee8e8653dc009b5d86af4a8e2ad3a5e0688ca4c",
+                "reference": "cee8e8653dc009b5d86af4a8e2ad3a5e0688ca4c",
                 "shasum": ""
             },
             "replace": {
@@ -26,7 +26,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3.x-dev"
+                    "dev-master": "3.4.x-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -55,7 +55,7 @@
                 "responsive",
                 "web"
             ],
-            "time": "2017-10-04T07:51:34+00:00"
+            "time": "2018-09-18T18:10:47+00:00"
         }
     ],
     "packages-dev": [],

@@ -9,7 +9,7 @@
  // Importation de XSystem
  require_once(__DIR__ . '/../../config/XConfig_load.php');
 
-class XLogManager
+class XLogManager extends XClassManager
 {
 /******************************************************/
 /*****************     PARAMETRES     *****************/

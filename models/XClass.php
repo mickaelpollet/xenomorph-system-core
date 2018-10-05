@@ -1,7 +1,7 @@
 <?php
 /*************************************
- * @project: 	Xenomorph - System - Core
- * @file:		MODEL CLASS XClass
+ * @project:  Xenomorph - System - Core
+ * @file:		  MODEL CLASS XClass
  * @author: 	Mickaël POLLET
  *************************************/
 
@@ -19,7 +19,6 @@ class XClass
 //	use XSystem;
 	private $properties = array();
 
-
 /**********************************************************/
 /*****************     FIN PARAMETRES     *****************/
 /**********************************************************/
@@ -29,21 +28,43 @@ class XClass
 /*****************     CONSTRUCTEUR     *****************/
 /********************************************************/
 
-	public function __construct() {				// Constructeur dirigé vers la méthode d'hydratation
+  // Constructeur global de la classe
+	public function __construct() {
 		$this->setClassProperties();
 	}
 
+  // Qualification de la méthode appelée
 	function __call($method, $params) {
+
+    // Vérification de l'existance de la méthode
 		if ($this->isProperty($method)) {
+      // SI la méthode existe dans les propriétés, c'est qu'il s'agit d'un getter
+      // On appelle donc le getter concerné
 			return $this->get($method);
 		} else if (preg_match("#^set([A-Z].*)$#", $method, $matches)) {
+      // SINON, on vérifie si la méthode est un setter, qualifié par le mot clé 'set' suivi d'une majuscule
 			if ($this->isProperty(lcfirst($matches[1]))) {
+        // SI C'est le cas, on envoi la valeur au setter
 				$this->set(lcfirst($matches[1]), $params[0]);
 			} else {
-	//			throw new XException('00010005', 4, array( 0 => $method, 1 => get_class($this) ));
+        // SINON on catch l'erreur
+			  //throw new XException('00010005', 4, array( 0 => $method, 1 => get_class($this) ));
 			}
 		} else {
-	//		throw new XException('00010005', 4, array( 0 => $method, 1 => get_class($this) ));
+      // SINON, il ne s'agit ni d'un getter, ni d'un setter, on vérifie donc si il s'agit d'une méthode du Manager du modèle
+
+      // Vérification de l'existance d'un Manager pour ce modèle
+      if (class_exists(get_class($this).'Manager')) {
+
+        $class_name = get_class($this).'Manager';               // Préparation du nom de la classe du Manager
+        $current_manager_class = new $class_name($this);        // Instanciation du Manager
+
+        if (method_exists($current_manager_class, $method)) {   // SI la méthode existe pour le Manager...
+          $current_manager_class->$method($params);             // On appelle la méthode dans le manager
+        }
+      } else {
+        //		throw new XException('00010005', 4, array( 0 => $method, 1 => get_class($this) ));
+      }
 		}
 	}
 
@@ -77,7 +98,7 @@ class XClass
 
 	public function get($property) {
 		if ($this->isProperty($property)) {
-			return $this->properties[$property]["value"];
+			return $this->properties[$property]->value();
 		}/* else {
 			throw new XException('00010004', 4, array( 0 => $property, 1 => get_class($this) ));
 		}*/
@@ -91,53 +112,77 @@ class XClass
 /*****************     SETTERS     *****************/
 /***************************************************/
 
-	public function property($property, $type = null, $db_location = null, $with_form = 0, $restrictions = array(), $form_components = array()) {
-		$this->properties[$property] = array(	"value"				=> NULL,
-												"type"				=> $type,
-												"db_location"		=> $db_location,
-												"with_form"			=> $with_form,
-												"restrictions"		=> $restrictions,
-												"form_components"	=> $form_components
-											);
+	public function property($name, $type = null, $db_location = null, $with_form = 0, $restrictions = array(), $form_components = array()) {
+
+    if (is_a($name, 'XClassProperty')) {
+      $this->properties[$name->name()] = $name;
+    } else {
+      if (is_array($name)) {
+        $current_property = new XClassProperty($name);
+        $this->properties[$current_property->name()] = $current_property;
+      } else {
+
+        $current_property = new XClassProperty(
+                                                array(
+                                                  'name'  =>  $name,
+                                                  'type'  =>  $type,
+                                                  'defaultValue'  =>  null,
+                                                  'value'   =>  null,
+                                                  'db_location' => $db_location
+                                                )
+                                              );
+
+        $this->properties[$name] = $current_property;
+
+      }
+    }
 	}
 
 	public function set($property, $value) {
 
-		if($this->isProperty($property)) {
+    // Vérification que la propriété existe bien
+		if ($this->isProperty($property)) {
 
 			// Si le type de la propriété est connu...
-			if (isset($this->properties[$property]["type"])) {
+			/*if ($this->properties[$property]->type() != null) {
 
 				// Forçage des types majeurs
-				switch ($this->properties[$property]["type"]) {
-					case 'boolean':		$value_typed = (boolean)$value;		break;
-					case 'integer':		$value_typed = (int)$value;			break;
-					case 'string':		$value_typed = (string)$value;		break;
-					case 'array':		$value_typed = $value;				break;
-					case 'datetime':	$value_typed = $value;				break;
-					case 'date':		$value_typed = $value;				break;
-					default:			$value_typed = $value;				break;
+				switch ($this->properties[$property]->type()) {
+					case 'boolean':  $value_typed = (boolean)$value; break;
+					case 'integer':  $value_typed = (int)$value;		 break;
+					case 'string':   $value_typed = (string)$value;	 break;
+					case 'array':    $value_typed = $value;				   break;
+					case 'datetime': $value_typed = $value;				   break;
+					case 'date':     $value_typed = $value;			     break;
+					default:         $value_typed = $value;			     break;
 				}
 
 				$current_type = gettype($value_typed);
+
 				if ($current_type != 'object') {
-					if ($current_type == $this->properties[$property]["type"] || $current_type == NULL || $current_type == 'NULL' || $this->properties[$property]["type"] == 'date' || $this->properties[$property]["type"] == 'datetime') {
+					if ($current_type == $this->properties[$property]->type() ||
+              $current_type == NULL ||
+              $this->properties[$property]->type() == 'date' ||
+              $this->properties[$property]->type() == 'datetime') {
 						if ($current_type == 'NULL') { $current_type = NULL; }
-						$this->properties[$property]["value"] = $value_typed;
+						$this->properties[$property]->setValue($value_typed);
 					} else {
 				//		throw new XException('00010006', 4, array( 0 => $this->properties[$property]["type"], 1 => $property, 2 => $value_typed, 3 => $current_type ));
 					}
 				} else {
-					if (is_a($value, $this->properties[$property]["type"]) || $current_type == NULL || $current_type == 'NULL') {
+					if (is_a($value, $this->properties[$property]->type()) || $current_type == NULL || $current_type == 'NULL') {
 						if ($current_type == 'NULL') { $current_type = NULL; }
-						$this->properties[$property]["value"] = $value;
+						//$this->properties[$property]["value"] = $value;
+            $this->properties[$property]->setValue($value);
 					} else {
 					//	throw new XException('00010006', 4, array( 0 => $this->properties[$property]["type"], 1 => $property, 2 => $value, 3 => $current_type ));
 					}
 				}
-			} else {
-				$this->properties[$property]["value"] = $value;
-			}
+			} else {*/
+				//$this->properties[$property]["value"] = $value;
+
+        $this->properties[$property]->setValue($value);
+			//}
 		}
 	}
 

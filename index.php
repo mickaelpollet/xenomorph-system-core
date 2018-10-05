@@ -28,16 +28,29 @@
     // XClass instanciating
     $XClassExemple = new XExemple();
 
-    // Manager calling with default properties
-    echo XExempleManager::hello($XClassExemple);
-
     echo "<br/>";
 
     // XClass property setting
+    $XClassExemple->hello();
     $XClassExemple->setProperty1("Mika");
 
-    // Manager calling with setted properties
-    echo XExempleManager::hello($XClassExemple);
+    // Asking Manager method
+    /*
+    * The Manager Object and his method are automaticly called by XClass
+    * You don't have to instanciate Manager anymore
+    */
+    $XClassExemple->hello();
+
+    //var_dump($XClassExemple);
+
+    $test = new XClassProperty(array(
+        'name' => 'test',
+        'type' => 'string',
+        'defaultValue' => '1',
+        'value' => '2'
+      )
+    );
+    //var_dump($test);
 
   ?>
 

@@ -1,16 +1,19 @@
 <?php
 /*************************************
  * @project: 	Xenomorph - System - Core
- * @file:		  XExemple CLASS MANAGER
+ * @file:		  XClass CLASS MANAGER
  * @author: 	Mickaël POLLET
  *************************************/
 
-class XExempleManager extends XClassManager
+class XClassManager
 {
 
   /******************************************************/
   /*****************     PROPERTIES     *****************/
   /******************************************************/
+
+    protected $XObject;
+
   /******************************************************/
   /***************     END PROPERTIES     ***************/
   /******************************************************/
@@ -20,9 +23,7 @@ class XExempleManager extends XClassManager
   /********************************************************/
 
     public function __construct($object = null) {
-      // Utilisation du constructeur parent
-      parent::__construct($object);
-      // Le manager étant instancié, on s'appuie désormais sur l'objet "$XObject"
+      $this->XObject = $object;
     }
 
   /********************************************************/
@@ -46,11 +47,6 @@ class XExempleManager extends XClassManager
   /************************************************************/
   /*********************     METHODS     **********************/
   /************************************************************/
-
-    public function hello() {
-      var_dump("Hello ".$this->XObject->property1());
-    }
-
   /************************************************************/
   /******************     END METHODS     *********************/
   /************************************************************/
