@@ -1,59 +1,86 @@
 <?php
 
 /*************************************
- * @project: 	Xenomorph - System - Core
- * @file:		Globals fonctions page
- * @author: 	Mickaël POLLET
+ * @project:  Xenomorph - System - Core
+ * @file:     Demonstration Page
+ * @author:   Mickaël POLLET
  *************************************/
 
- // Importation de XSystem
- require_once(__DIR__ . '/config/XConfig_load.php');
+try {
+
+  // Auto-chargement des classes
+  if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+  	require_once(__DIR__ . '/vendor/autoload.php');
+  } else {
+    throw new Exception("L'Auto-chargement des classes n'a pas été trouvé");
+  }
 
 ?>
 
-<html>
+<!DOCTYPE html>
 
-<head>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 
-  <h1>XENOMORPH - System : Core</h1>
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  Concerning XClasses, you have the following exemple :
+      <title>Xenomorph - System - Core</title>
 
-  <?php
+      <!-- Déclaration CSS
+      ================================================== -->
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap-theme.min.css">
+      <!-- FontAwsome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    echo "<br/>";
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn\'t work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
 
-    // XClass instanciating
-    // Method 1
-    $XClassExemple = new XExemple();
-    // Method 2
-    $XClassExempleValues = array();
-    $XClassExempleValues['property1'] = 'Mika';
-    $XClassExemple2 = new XExemple(array('property1' => 'Mika'));
+      <!--[if lt IE 10]>
+          <div style="position:relative; color:#fff; top:0px; width:100%; height:40px; background-color:#A0152D; margin-top:0px; padding:5px; border-bottom:solid 5px #791022; text-align: center">
+              <p>Cette application a été conçue pour fonctionner <b>à partir de la version 10 d\'Internet Explorer</b>. Mettez votre navigateur à jour ou utilisez un navigateur alternatif.</p>
+          </div>
+      <![endif]-->
 
-    // XClass property setting
-    $XClassExemple->setProperty1("Mika");
+    </head>
 
-    // Asking Manager method
-    /*
-    * The Manager Object and his method are automaticly called by XClass
-    * You don't have to instanciate Manager anymore
-    */
-    $XClassExemple->hello();
-    echo "<br/>";
-    $XClassExemple2->hello();
+    <body>
 
-    $test = new XClassProperty(array(
-        'name' => 'test',
-        'type' => 'string',
-        'defaultValue' => '1',
-        'value' => '2'
-      )
-    );
-    //var_dump($test);
+      <h1>XENOMORPH - System : Core</h1>
 
-  ?>
+      <?php
+        // Affichage du code
+        echo "<h2>Mode d'emploi des classes 'XClass' :</h2>";
+        highlight_file(__DIR__ . '/exemple.php');
 
-</body>
+        // Appel du code
+        echo "<h2>Execution du code ci-dessus :</h2>";
+        require_once(__DIR__ . '/exemple.php');
+      ?>
+
+      <!-- Déclaration Javascript
+      ================================================== -->
+      <!-- Bootstrap -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"                          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    </body>
+
+  <html>
+
+<?php
+
+} catch (Exception $e) {
+  $error_message = $e->getMessage();
+  include (__DIR__ . '/views/critical_error.vew.php');
+  exit;
+}
+
+?>

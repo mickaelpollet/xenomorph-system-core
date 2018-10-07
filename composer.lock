@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c71d0f521860fe7dc7add12b113bfce",
+    "content-hash": "1ff8b62983113ef5c3c7fa2cf19a29db",
     "packages": [
         {
             "name": "twbs/bootstrap",
@@ -56,6 +56,48 @@
                 "web"
             ],
             "time": "2018-09-28T06:53:59+00:00"
+        },
+        {
+            "name": "xenomorph/xenomorph-system-toolbox",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mickaelpollet/xenomorph-system-toolbox.git",
+                "reference": "6ceebdcb1643955ee13d6143246368f631727f3b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mickaelpollet/xenomorph-system-toolbox/zipball/6ceebdcb1643955ee13d6143246368f631727f3b",
+                "reference": "6ceebdcb1643955ee13d6143246368f631727f3b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "models/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mickaël POLLET",
+                    "email": "mickaelpollet@gmail.com"
+                }
+            ],
+            "description": "Xenomorph's Framework and Libraries Toolbox",
+            "keywords": [
+                "Toolbox",
+                "framework",
+                "php freamwork",
+                "xenomorph"
+            ],
+            "time": "2018-10-07T10:04:26+00:00"
         }
     ],
     "packages-dev": [],

@@ -13,12 +13,13 @@
     "minimum-stability": "dev",
     "require": {
       "php":">=5.5.0",
-      "twbs/bootstrap": "^3.3@dev"
+      "twbs/bootstrap": "^3.3@dev",
+      "xenomorph/xenomorph-system-toolbox": ">=1.0.0"
     },
     "autoload": {
       "classmap": [
         "models/"
       ]
     },
-    "version": "1.0.0"
+    "version": "1.5.0"
 }

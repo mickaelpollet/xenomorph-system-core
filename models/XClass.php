@@ -5,9 +5,6 @@
  * @author: 	Mickaël POLLET
  *************************************/
 
- // Importation de XSystem
- require_once(__DIR__ . '/../config/XConfig_load.php');
-
 //namespace Xenomorph;
 
 class XClass
@@ -16,7 +13,6 @@ class XClass
 /*****************     PARAMETRES     *****************/
 /******************************************************/
 
-//	use XSystem;
 	private $properties = array();
 
 /**********************************************************/
@@ -49,11 +45,10 @@ class XClass
 				$this->set(lcfirst($matches[1]), $params[0]);
 			} else {
         // SINON on catch l'erreur
-			  //throw new XException('00010005', 4, array( 0 => $method, 1 => get_class($this) ));
+        throw new Exception("la méthode '".$method."' est invalide pour l'objet '".get_class($this)."'", '00010005');
 			}
 		} else {
       // SINON, il ne s'agit ni d'un getter, ni d'un setter, on vérifie donc si il s'agit d'une méthode du Manager du modèle
-
       // Vérification de l'existance d'un Manager pour ce modèle
       if (class_exists(get_class($this).'Manager')) {
 
@@ -64,7 +59,7 @@ class XClass
           $current_manager_class->$method($params);             // On appelle la méthode dans le manager
         }
       } else {
-        //		throw new XException('00010005', 4, array( 0 => $method, 1 => get_class($this) ));
+      throw new Exception("la méthode '".$method."' est invalide pour l'objet '".get_class($this)."'", '00010005');
       }
 		}
 	}
@@ -78,26 +73,27 @@ class XClass
 /*****************     HYDRATATION     *****************/
 /*******************************************************/
 
+  // Méthode d'hydratation générale
   private function hydrate($object_data) {
 
-    if (is_array($object_data)) {
-      foreach ($object_data as $object_data_key => $object_data_value) {
+    // Vérification du type de donnée insérée
+    if (is_array($object_data)) {                                                                           // SI il s'agit d'un tableau...
+      foreach ($object_data as $object_data_key => $object_data_value) {                                    // On parcourt chaque élément du tableau
+        if($this->isProperty($object_data_key) || method_exists($this, 'set'.ucfirst($object_data_key))) {  // SI la clé est une propriété de l'objet ou une méthode existante pour l'objet...
 
-        if($this->isProperty($object_data_key) || method_exists($this, 'set'.ucfirst($object_data_key))) {
-          if ($object_data_value == '') {
-            $object_data_value = null;
-          }
+          // Retypage à 'Null' en cas de valeur vide
+          if ($object_data_value == '') { $object_data_value = null;  }
 
-          $this->{'set'.ucfirst($object_data_key)}($object_data_value);
+          $this->{'set'.ucfirst($object_data_key)}($object_data_value);                                     // On appelle le 'setter' correspondant
         }
       }
-    } else if (is_a($object_data, get_class($this))) {
-      foreach ($this->properties() as $properties_key => $properties_value) {
-        $this->{'set'.ucfirst($properties_value)}($object_data->$properties_value());
+    } else if (is_a($object_data, get_class($this))) {                                                      // SINON si il s'agit d'un objet...
+      foreach ($this->properties() as $properties_key => $properties_value) {                               // Pour chacune de ses propriétés...
+        $this->{'set'.ucfirst($properties_value)}($object_data->$properties_value());                       // On appelle le 'setter' correspondant
       }
-    }/* else {
-      throw new XException('00010003', 4, array( 0 => get_class($this) ));
-    }*/
+    } else {
+      throw new Exception("le type de donnée inséré à la méthode d'hydratation de la classe '".get_class($this)."' est incorrect", '00010003');
+    }
   }
 
 /***********************************************************/
@@ -109,20 +105,23 @@ class XClass
 /*****************     GETTERS     *****************/
 /***************************************************/
 
+  // Récupération des propriétés de l'objet
 	public function properties() {
 		return $this->properties;
 	}
 
+  // Vérification de l'existance de la propriété pour l'objet
 	public function isProperty($name) {
 		return isset($this->properties[$name]);
 	}
 
+  // Récupère la valeur associée à la propriété de l'objet
 	public function get($property) {
 		if ($this->isProperty($property)) {
 			return $this->properties[$property]->value();
-		}/* else {
-			throw new XException('00010004', 4, array( 0 => $property, 1 => get_class($this) ));
-		}*/
+		} else {
+      throw new Exception("la propriété '".$property."' est invalide pour l'objet '".get_class($this)."'", '00010004');
+		}
 	}
 
 /*******************************************************/
@@ -159,6 +158,7 @@ class XClass
     }
 	}
 
+  // Setter générique
 	public function set($property, $value) {
 
     // Vérification que la propriété existe bien
@@ -188,7 +188,7 @@ class XClass
 						if ($current_type == 'NULL') { $current_type = NULL; }
 						$this->properties[$property]->setValue($value_typed);
 					} else {
-				//		throw new XException('00010006', 4, array( 0 => $this->properties[$property]["type"], 1 => $property, 2 => $value_typed, 3 => $current_type ));
+              throw new Exception("le type '".$this->properties[$property]["type"]."' de la propriété '".$property."' est invalide : '".$value_typed."' => '".$current_type."'", '00010006');
 					}
 				} else {
 					if (is_a($value, $this->properties[$property]->type()) || $current_type == NULL || $current_type == 'NULL') {
@@ -196,7 +196,7 @@ class XClass
 						//$this->properties[$property]["value"] = $value;
             $this->properties[$property]->setValue($value);
 					} else {
-					//	throw new XException('00010006', 4, array( 0 => $this->properties[$property]["type"], 1 => $property, 2 => $value, 3 => $current_type ));
+            throw new Exception("le type '".$this->properties[$property]["type"]."' de la propriété '".$property."' est invalide : '".$value_typed."' => '".$current_type."'", '00010006');
 					}
 				}
 			} else {*/
