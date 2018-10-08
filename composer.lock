@@ -63,12 +63,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mickaelpollet/xenomorph-system-toolbox.git",
-                "reference": "6ceebdcb1643955ee13d6143246368f631727f3b"
+                "reference": "5842d43bb2b8750fced2c181db8ef3bf3e73e17b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mickaelpollet/xenomorph-system-toolbox/zipball/6ceebdcb1643955ee13d6143246368f631727f3b",
-                "reference": "6ceebdcb1643955ee13d6143246368f631727f3b",
+                "url": "https://api.github.com/repos/mickaelpollet/xenomorph-system-toolbox/zipball/5842d43bb2b8750fced2c181db8ef3bf3e73e17b",
+                "reference": "5842d43bb2b8750fced2c181db8ef3bf3e73e17b",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +97,7 @@
                 "php freamwork",
                 "xenomorph"
             ],
-            "time": "2018-10-07T10:04:26+00:00"
+            "time": "2018-10-08T06:13:57+00:00"
         }
     ],
     "packages-dev": [],
